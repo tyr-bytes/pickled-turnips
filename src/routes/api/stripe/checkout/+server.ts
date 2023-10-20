@@ -1,8 +1,5 @@
 import { error, redirect } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
-import { getCustomerRecord } from "$lib/server/customer";
-import { stripe } from "$lib/server/stripe";
-import { ENV } from "$lib/server/env";
 import { createCheckoutSession, getSubscriptionTier } from "$lib/server/subscriptions";
 
 

@@ -1,6 +1,6 @@
 import Stripe from "stripe";
-import {ENV} from "$lib/server/env"
+import { STRIPE_SECRET_KEY } from "$env/static/private"
 
-export const stripe = new Stripe(ENV.STRIPE_SECRET_KEY, {
+export const stripe = new Stripe(STRIPE_SECRET_KEY, {
     apiVersion: "2022-11-15"
 });

@@ -2,10 +2,10 @@ import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import type Stripe from "stripe";
 import { stripe } from "$lib/server/stripe";
-import { ENV } from "$lib/server/env";
 import { deleteProductRecord, upsertProductRecord } from "$lib/server/products";
 import { deleteCustomerRecord, updateCustomerRecord } from "$lib/server/customer";
 import { insertSubscriptionRecord, updateSubscriptionRecord } from "$lib/server/subscriptions";
+import { STRIPE_SIGNING_SECRET } from "$env/static/private";
 
 export const POST: RequestHandler = async (event) => {
 	const stripeSignature = event.request.headers.get("stripe-signature");
@@ -22,7 +22,7 @@ export const POST: RequestHandler = async (event) => {
 		stripeEvent = stripe.webhooks.constructEvent(
 			body,
 			stripeSignature,
-			ENV.STRIPE_SIGNING_SECRET
+			STRIPE_SIGNING_SECRET
 		) as Stripe.DiscriminatedEvent;
 	} catch (e) {
 		return json("Invalid signature", { status: 401 });

@@ -2,14 +2,22 @@
     import { Button, Card } from "flowbite-svelte";
     import type { PageData } from "./$types";
     import { superForm } from "sveltekit-superforms/client";
+    import toast from "svelte-french-toast";
     export let data: PageData;
     const { form, errors, enhance } = superForm(data.updateContactForm, {
       onResult: ({ result }) => {
-        switch(result.type) {
-          case "success":
-            break;
-          default:
-            return;
+        switch (result.type) {
+        case "success":
+          toast.success("Successfully updated contact!");
+          break;
+        case "error":
+          toast.error("Error updating your contact.");
+          break;
+        case "failure":
+          toast.error("Validation error, check the details and try again.");
+          break;
+        default:
+          return;
 
         }
         return;

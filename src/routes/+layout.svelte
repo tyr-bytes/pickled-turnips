@@ -1,4 +1,5 @@
 <script lang="ts">
+	import {Toaster} from "svelte-french-toast"; 
 	import "../app.css";
 	import { page } from "$app/stores";
 	import {
@@ -42,6 +43,8 @@
 <svelte:head>
 	<title>Contactly</title>
 </svelte:head>
+
+<Toaster/>
 
 <div class="flex h-full flex-col">
 	<Navbar let:hidden let:toggle>

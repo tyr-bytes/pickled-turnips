@@ -2,10 +2,29 @@
 	import { Card, Button } from "flowbite-svelte";
 	import type { PageData } from "./$types";
 	import { superForm } from "sveltekit-superforms/client";
+	import toast from "svelte-french-toast";
 
 	export let data: PageData;
 
-	const { form, errors, enhance } = superForm(data.form, { resetForm: true });
+	const { form, errors, enhance } = superForm(data.form, { 
+		resetForm: true,
+		onResult: ({ result }) => {
+			switch(result.type) {
+				case "success":
+					toast.success("Success! Confirmed your email to login.")
+					break;
+				case "error":
+					toast.error("Error creating your account!")
+					break;
+				case "failure":
+					toast.error("Double check your details and try again!")
+					break;
+				default:
+					return;
+			}
+			return;
+			},	
+		});
 </script>
 
 <div class="py-20">

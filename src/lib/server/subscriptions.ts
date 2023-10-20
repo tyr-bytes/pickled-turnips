@@ -3,7 +3,7 @@ import type Stripe from "stripe";
 import { supabaseAdmin } from "./supabase-admin";
 import { stripe } from "./stripe";
 import { getCustomerRecord } from "./customer";
-import {PUBLIC_BASE_URL} from "$env/static/public";
+import {ENV} from "./env";
 
 export async function insertSubscriptionRecord(stripeSubscription: Stripe.Subscription){
     const subscription = stripeSubscriptionSchema.parse(stripeSubscription);
@@ -79,8 +79,8 @@ export async function createCheckoutSession(user_id: string, price_id: string) {
           quantity: 1,
         },
       ],
-      success_url: `${PUBLIC_BASE_URL}/account`,
-      cancel_url: `${PUBLIC_BASE_URL}/pricing`,
+      success_url: `${ENV.PUBLIC_BASE_URL}/account`,
+      cancel_url: `${ENV.PUBLIC_BASE_URL}/pricing`,
       subscription_data: {
         metadata: {
           user_id,
@@ -110,8 +110,8 @@ export async function createCheckoutSession(user_id: string, price_id: string) {
         quantity: 1,
       },
     ],
-    success_url: `${PUBLIC_BASE_URL}/account`,
-    cancel_url: `${PUBLIC_BASE_URL}/pricing`,
+    success_url: `${ENV.PUBLIC_BASE_URL}/account`,
+    cancel_url: `${ENV.PUBLIC_BASE_URL}/pricing`,
     subscription_data: {
       metadata: {
         user_id,

@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-
+dotenv.config({path: `env.local`, override: true})
 function getEnvironmentVariable(environmentVariable: string): string {
 	const validEnvironmentVariable = process.env[environmentVariable];
 	if (!validEnvironmentVariable) {

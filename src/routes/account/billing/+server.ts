@@ -2,7 +2,7 @@ import { error, redirect } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 import { getCustomerRecord } from "$lib/server/customer";
 import { stripe } from "$lib/server/stripe";
-import { ENV } from "$lib/server/env";
+import { env } from "$env/dynamic/private";
 
 export const GET: RequestHandler = async (event) => {
     const session = await event.locals.getSession()
@@ -14,7 +14,7 @@ export const GET: RequestHandler = async (event) => {
 
     const portalSession = await stripe.billingPortal.sessions.create({
         customer: customer.id,
-        return_url: `${ENV.PUBLIC_BASE_URL}/account`
+        return_url: `${env.PUBLIC_BASE_URL}/account`
     })
 
     if (!portalSession.url){
